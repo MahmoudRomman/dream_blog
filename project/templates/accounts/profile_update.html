@@ -1,0 +1,49 @@
+{% extends 'partials/base.html' %}
+{% block title %} Home Page {% endblock title %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+    <div class="row my-4">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    Profile Page
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span class="h4"> Profile Information</span>
+                            <hr>
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% bootstrap_form user_form %}
+                                {% comment %} {% bootstrap_form profile_form %} {% endcomment %}
+
+                                <div class="col-md-7 offset-md-6">
+                                    {% comment %} {% if user.profile.image %}
+                                        <img class="img-thumbnail" src="{{ user.profile.image.url }}" alt="">
+                                    {% else %}
+                                        <img class="img-thumbnail" src="{% url 'avatar.png' %}" alt="">
+                                    {% endif %} {% endcomment %}
+                            <img class="img-thumbnail" src="{{ user_profile.avatar.url }}" alt="">
+
+                                </div>
+
+                                <br>
+                                <br>
+
+                                <input class="btn btn-danger col-md-7 offset-md-6" type="submit" value="Update">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+    

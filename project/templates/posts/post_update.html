@@ -1,0 +1,23 @@
+{% extends 'partials/base.html' %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-12 offset-md-0">
+                <div class="border bg-white p-3">
+                    <h3 class="col-md-6 offset-md-5">Update an article</h3>
+                    <hr>
+                    <form method="POST" action="." enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <button class="btn btn-secondary col-md-6 offset-md-3" type="submit">Submit</button>
+                
+                    </form>
+                </div>
+            </div>
+        </div>
+     </div>
+     <br>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<br>
+<h2>The result(s) of your search: </h2>
+<br>
+{% for post in queryset %}
+    <a class="ml-2" href="{{ post.get_absolute_url }}">{{post.title}}</a>
+    <br>
+    <hr>
+    <br>
+{% endfor %}
+
+
+{% endblock content%}

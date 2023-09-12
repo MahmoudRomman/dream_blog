@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontastic.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="{% static 'vendor/@fancyapps/fancybox/jquery.fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+  </head>
+
+<body>
+
+  <header class="header">
+    <!-- Main Navbar-->
+    <nav class="navbar navbar-expand-lg">
+      <div class="search-area">
+        <div class="search-area-inner d-flex align-items-center justify-content-center">
+          <div class="close-btn"><i class="icon-close"></i></div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+              <form action="{% url 'search' %}">
+                <div class="form-group">
+                  <input type="search" name="q" id="search" placeholder="What are you looking for?">
+                  <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <!-- Navbar Brand -->
+        <div class="navbar-header d-flex align-items-center justify-content-between">
+          <!-- Navbar Brand --><a href="/" class="navbar-brand">Dream Blog</a>
+
+          
+
+          {% if user.is_authenticated %}  
+
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Categories
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'post_list' %}">
+                  All
+                </a>
+                {% for category in categories %}
+                  <a class="dropdown-item" href="{% url 'post_list' %}?category={{category}}">
+                      {{category}}
+                  </a>
+                {% endfor %}
+              </div>
+            </li>
+          </ul>
+
+          {% endif %}
+
+          <!-- Toggle Button-->
+          <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+        </div>
+        <!-- Navbar Menu -->
+        <div id="navbarcollapse" class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="/" class="nav-link ">Home</a>
+            </li>
+            <li class="nav-item"><a href="/blog" class="nav-link ">Blog</a>
+            </li>
+            
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'post_create' %}" class="nav-link ">Create</a>
+                </li>
+
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                          MyInfo
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'user-profile' user.id %}">MyProfile</a>
+                        <a class="dropdown-item" href="{% url 'user-about' %}">Contact</a>
+                        <a class="dropdown-item" href="{% url 'user-logout' %}">Logout</a>
+                    </div>
+                  </li>
+                </ul>
+            {% else %}
+                <li class="nav-item"><a href="{% url 'user-register' %}" class="nav-link ">Register</a>
+                </li>
+
+                <li class="nav-item"><a href="{% url 'user-login' %}" class="nav-link ">Login</a>
+                </li>
+            {% endif %}
+
+          </ul>
+          
+          {% if user.is_authenticated %}  
+          <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <!-- Latest Posts -->
+      <main class="posts-listing col-lg-8"> 
+        <div class="container">
+          <div class="row">
+            <!-- post -->
+            
+                {% for post in queryset %}
+                <div class="post col-xl-6">
+
+                  <div class="post-thumbnail">
+                    <a href="{{post.get_absolute_url}}">
+                      <img src="{{post.thumbnail.url}}" alt="..." class="img-fluid">
+                    </a>
+                  </div>
+
+                  <div class="post-details">
+                    <div class="post-meta d-flex justify-content-between">
+                      <div class="category">
+                        {% for cat in post.categories.all %}
+                            <a href="#">{{cat}}</a>
+                        {% endfor %}
+                      </div>
+                    </div><a href="{{post.get_absolute_url}}">
+                      <h3 class="h4">{{post.title}}</h3></a>
+                    <p class="text-muted">{{post.overview}}</p>
+                    <footer class="post-footer d-flex align-items-center">
+                      <a href="#" class="author d-flex align-items-center flex-wrap">
+                        <div class="avatar"><img src="{{post.author.avatar.url}}" alt="..." class="img-fluid"></div>
+                        <div class="title"><span>{{post.author.user.username}}</span></div>
+                      </a>
+                      <div class="date"><i class="icon-clock"></i> {{post.timestamp|timesince}} ago</div>
+                      <div class="comments meta-last"><i class="icon-comment"></i>{{post.comment_count}}</div>
+                    </footer>
+                  </div>
+                </div>
+                {% endfor %}
+
+          </div>
+
+
+          <!-- Pagination -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-template d-flex justify-content-center">
+              {% if queryset.has_previous %}
+                  <li class="page-item"><a href="?{{page_request_var}}={{queryset.previous_page_number}}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+              {% endif %}
+              
+              <li class="page-item"><a href="?{{page_request_var}}={{queryset.number}}" class="page-link active">{{queryset.number}}</a></li>
+              
+              {% if queryset.has_next %}  
+                  <li class="page-item"><a href="?{{page_request_var}}={{queryset.next_page_number}}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+      </main>
+      {% include 'partials/sidebar.html' with most_recent=most_recent category_count=category_count %}
+    </div>
+  </div>
+
+
+    {% include 'partials/footer.html' %}
+    {% include 'partials/scripts.html' %}
+
+</body>
+
+</html>
+

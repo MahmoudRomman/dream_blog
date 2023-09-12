@@ -1,0 +1,41 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+    <style>
+      .post-body img{
+        width :100%
+      }
+    </style>
+    <div class="container">
+      <div class="row">
+        <!-- Latest Posts -->
+        <main class="post blog-post col-lg-8"> 
+                
+                {% if request.user.is_authenticated %}  
+                    <div class="add-comment">
+                      <header>
+                        <h3 class="h6">Edit your reply</h3>
+                      </header>
+                      <form method="POST" action="." class="commenting-form">
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="form-group col-md-12">
+                            {{form}}
+                          </div>
+                          <div class="form-group col-md-12">
+                            <button type="submit" class="btn btn-secondary" href="{% url 'post_detail' comment_post %}">Cancel</button>
+                            <button type="submit" class="btn btn-secondary">Update Comment</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                {% endif %}
+
+        </main>
+        {% comment %} {% include 'partials/sidebar.html' with post=post previous_post=previous_post next_post=next_post most_recent=most_recent category_count=category_count %} {% endcomment %}
+      </div>
+    </div>
+{% endblock content %}

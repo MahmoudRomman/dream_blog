@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.father {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.father {
+    font-size: 10px;
+}
+
+body {
+    background: url("../../media/about-us-background1.png");
+    background-position: 0 1000px;
+    font-family: 'Roboto' sans-serif;
+}
+
+.father {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.h1 {
+    color: #398f51;
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: 8px;
+    margin-bottom: 2rem;
+}
+
+.h2 {
+    color: #777;
+    font-size: 4rem;
+    font-weight: 400;
+}
+
+.image11 {
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+}
+
+
+.pa1 {
+    font-size: 2rem;
+    color: #777;
+    line-height: 3rem;
+    margin-bottom: 5rem;
+}
+
+.pa2 {
+    font-size: 2rem;
+    color: #777;
+    line-height: 3rem;
+    margin-bottom: 2rem;
+}
+
+
+
+.btn66 {
+    display: inline-block;
+    padding: 2rem 5rem;
+    font-size: 2rem;
+    text-decoration: none;
+    color: #398f51;
+    border-radius: 10px;
+    transition: background 0.5s;
+
+}
+
